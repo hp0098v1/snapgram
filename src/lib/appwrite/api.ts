@@ -426,6 +426,21 @@ export async function getSavedPosts(userId: string) {
 }
 
 // ============================== GET USER'S POST
+export async function getUserPosts(userId: string) {
+  try {
+    const userPosts = await databases.listDocuments(
+      appwriteConfig.databaseId,
+      appwriteConfig.postCollectionId,
+      [Query.equal("creator", userId)]
+    );
+
+    if (!userPosts) throw Error;
+
+    return userPosts;
+  } catch (error) {
+    console.log(error);
+  }
+}
 // ============================== GET POPULAR POSTS (BY HIGHEST LIKE COUNT)
 
 // ============================================================

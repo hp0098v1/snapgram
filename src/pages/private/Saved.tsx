@@ -8,7 +8,7 @@ const Saved = () => {
   const { data: savedPosts, isFetching } = useGetSavedPosts(user.id);
 
   return (
-    <div className="common-container">
+    <div className="saved-container">
       {/* Header */}
       <div className="max-w-5xl flex-start gap-3 justify-start w-full">
         <img
