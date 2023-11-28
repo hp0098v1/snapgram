@@ -20,7 +20,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/components/ui/use-toast";
-import { useAuthStore, useCheckAuth } from "@/lib/zustand/useAuthStore";
+import { useAuthStore } from "@/lib/zustand/useAuthStore";
 
 const SignUp = () => {
   const navigate = useNavigate();
