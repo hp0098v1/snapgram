@@ -13,6 +13,7 @@ import {
   getInfintePosts,
   getPostById,
   getRecentPosts,
+  getSavedPosts,
   likePost,
   savePost,
   searchPosts,
@@ -22,6 +23,7 @@ import {
 } from "../appwrite/api";
 import { INewPost, INewUser, IUpdatePost } from "@/types";
 import { QUERY_KEYS } from "./queryKeys";
+import { Models } from "appwrite";
 
 // ============================================================
 // AUTH QUERIES
@@ -185,6 +187,15 @@ export const useDeleteSavedPosts = () => {
         queryKey: [QUERY_KEYS.GET_CURRENT_USER],
       });
     },
+  });
+};
+
+export const useGetSavedPosts = (userId: string) => {
+  return useQuery({
+    queryKey: [QUERY_KEYS.GET_RECENT_POSTS],
+    queryFn: () => getSavedPosts(userId),
+    select: (data) =>
+      data?.documents.map((item) => item.post as Models.Document),
   });
 };
 

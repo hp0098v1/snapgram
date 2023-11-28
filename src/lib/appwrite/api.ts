@@ -396,13 +396,30 @@ export async function deleteSavedPost(savedRecordId: string) {
   try {
     const statusCode = await databases.deleteDocument(
       appwriteConfig.databaseId,
-      appwriteConfig.postCollectionId,
+      appwriteConfig.savesCollectionId,
       savedRecordId
     );
 
     if (!statusCode) throw Error;
 
     return { status: "ok" };
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+// ============================== GET SAVED POST'S BY USER
+export async function getSavedPosts(userId: string) {
+  try {
+    const savedPosts = await databases.listDocuments(
+      appwriteConfig.databaseId,
+      appwriteConfig.savesCollectionId,
+      [Query.equal("user", userId)]
+    );
+
+    if (!savedPosts) throw Error;
+
+    return savedPosts;
   } catch (error) {
     console.log(error);
   }
