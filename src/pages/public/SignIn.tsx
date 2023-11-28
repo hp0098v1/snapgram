@@ -41,14 +41,11 @@ const SignUp = () => {
   // Submit Handler
   const submitHandler = async (values: z.infer<typeof SignInValidation>) => {
     try {
-      // console.log(await getCurrentUser());
-
       const session = await SignInAccount({
         email: values.email,
         password: values.password,
       });
 
-      console.log(session);
       if (!session)
         return toast({ title: "Sign in failed! please try againg" });
 
