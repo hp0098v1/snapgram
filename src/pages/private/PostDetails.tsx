@@ -1,6 +1,6 @@
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 
-import { useGetPostById } from "@/lib/react-query/queries";
+import { useDeletePost, useGetPostById } from "@/lib/react-query/queries";
 import { timeAgo } from "@/lib/utils";
 import Loader from "@/components/shared/Loader";
 import { useAuthStore } from "@/lib/zustand/useAuthStore";
@@ -9,12 +9,19 @@ import PostStats from "@/components/shared/PostStats";
 
 const PostDetails = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
   const { data: post, isPending } = useGetPostById(id || "");
+  const { mutateAsync: deletePost } = useDeletePost();
 
   const { user } = useAuthStore();
 
   // Handlers
-  const deletePostHandler = () => {};
+  const deletePostHandler = async () => {
+    if (post !== undefined) {
+      await deletePost({ postId: post?.$id, imageId: post.imageId });
+      navigate("/");
+    }
+  };
 
   return (
     <div className="post_details-container">
