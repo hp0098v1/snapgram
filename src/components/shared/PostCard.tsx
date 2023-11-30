@@ -18,7 +18,7 @@ const PostCard = ({ post }: PostCardProps) => {
         <div className="flex items-center gap-3">
           <Link to={`/profile/${post.creator.$id}`}>
             <img
-              className="w-12 lg:h-8 rounded-full object-cover"
+              className="w-12 h-12 rounded-full object-cover"
               src={
                 post?.creator?.imageUrl ||
                 "/assets/images/profile-placeholder.svg"

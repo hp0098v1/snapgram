@@ -31,7 +31,8 @@ export const useAuthStore = create<IAuthStore>()(
       isAuthenticated: false,
       setIsAuthenticated: (bool: boolean) =>
         set(() => ({ isAuthenticated: bool })),
-      setUser: (user: IUser) => set(() => ({ user: user })),
+      setUser: (user: IUser) =>
+        set(() => ({ user: { ...get().user, ...user } })),
       checkAuthUser: async () => {
         try {
           const currentAccount = await getCurrentUser();

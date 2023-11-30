@@ -51,7 +51,7 @@ const Profile = () => {
                       {/* Edit Profile Button */}
                       {user.$id === loggedInUser.id && (
                         <Link
-                          to={`/update-profile/${user.id}`}
+                          to={`/update-profile/${user.$id}`}
                           className="block"
                         >
                           <Button
