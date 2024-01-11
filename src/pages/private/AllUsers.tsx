@@ -1,5 +1,6 @@
 import Loader from "@/components/shared/Loader";
 import UserListGrid from "@/components/shared/UserListGrid";
+import { AllUsersSkeleton } from "@/components/skeletons";
 import { Button } from "@/components/ui/button";
 import { useGetInfinteUsers } from "@/lib/react-query/queries";
 
@@ -37,16 +38,21 @@ const AllUsers = () => {
           )}
         </div>
 
-        <div className="flex items-center justify-center">
-          {hasNextPage && !isFetching ? (
-            <Button
-              className={`shad-button_dark_4 ${isFetching && "hidden"}`}
-              onClick={() => fetchNextPage()}
-            >
-              Load More
-            </Button>
+        <div className="w-full max-w-5xl">
+          {isFetching ? (
+            <AllUsersSkeleton />
+          ) : hasNextPage ? (
+            <div className={`flex justify-center`}>
+              <Button
+                className={`shad-button_dark_4`}
+                disabled={isFetching}
+                onClick={() => fetchNextPage()}
+              >
+                {isFetching && <Loader />} Load More
+              </Button>
+            </div>
           ) : (
-            <Loader />
+            <p className="text-center">End of users</p>
           )}
         </div>
       </div>
