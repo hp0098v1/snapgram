@@ -46,8 +46,7 @@ const SignUp = () => {
         password: values.password,
       });
 
-      if (!session)
-        return toast({ title: "Sign in failed! please try againg" });
+      if (!session) return toast({ title: "Sign in failed! please try again" });
 
       const isLoggedIn = await checkAuthUser();
 
@@ -56,7 +55,7 @@ const SignUp = () => {
 
         navigate("/");
       } else {
-        return toast({ title: "Sign in failed! please try againg" });
+        return toast({ title: "Sign in failed! please try again" });
       }
     } catch (error) {
       console.log(error);
