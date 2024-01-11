@@ -1,5 +1,6 @@
 import GridPostList from "@/components/shared/GridPostList";
 import Loader from "@/components/shared/Loader";
+import { SavedSkeleton } from "@/components/skeletons";
 import { useGetSavedPosts } from "@/lib/react-query/queries";
 import { useAuthStore } from "@/lib/zustand/useAuthStore";
 
@@ -21,7 +22,7 @@ const Saved = () => {
 
       {/* Saved Posts */}
       {isFetching ? (
-        <Loader />
+        <SavedSkeleton />
       ) : savedPosts?.length === 0 ? (
         <p>there is no saved post</p>
       ) : (
