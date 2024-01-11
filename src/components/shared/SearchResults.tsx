@@ -1,6 +1,7 @@
 import { Models } from "appwrite";
-import Loader from "./Loader";
+
 import GridPostList from "./GridPostList";
+import { GridPostsSkeleton } from "@/components/skeletons";
 
 type SearchResultsProps = {
   isSearchFetching: boolean;
@@ -11,7 +12,7 @@ const SearchResults = ({
   isSearchFetching,
   searchedPosts,
 }: SearchResultsProps) => {
-  if (isSearchFetching) return <Loader />;
+  if (isSearchFetching) return <GridPostsSkeleton />;
 
   if (searchedPosts && searchedPosts.documents.length > 0)
     return <GridPostList posts={searchedPosts.documents} />;

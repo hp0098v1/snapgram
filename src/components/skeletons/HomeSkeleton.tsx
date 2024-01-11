@@ -1,3 +1,4 @@
+import { PostStatsSkeleton } from "@/components/skeletons/SharedSkeletons";
 import { Skeleton } from "@/components/ui/skeleton";
 
 const HomeSkeleton = () => {
@@ -14,7 +15,6 @@ const HomeSkeleton = () => {
                 <Skeleton className="h-5 w-20 mb-2" />
                 <div className="flex-center gap-2 text-light-3">
                   <Skeleton className="h-5 w-12" />
-                  -
                   <Skeleton className="h-5 w-12" />
                 </div>
               </div>
@@ -41,15 +41,7 @@ const HomeSkeleton = () => {
           </div>
 
           {/* Post Stats */}
-          <div className="flex justify-between items-center z-20">
-            <div className="flex gap-2 mr-5">
-              <Skeleton className="w-6 h-6" />
-            </div>
-
-            <div className="flex gap-2">
-              <Skeleton className="w-6 h-6" />
-            </div>
-          </div>
+          <PostStatsSkeleton />
         </div>
       ))}
     </div>

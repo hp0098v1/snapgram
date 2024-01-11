@@ -7,15 +7,21 @@ import { useGetPosts, useSearchPosts } from "@/lib/react-query/queries";
 import useDebounce from "@/hooks/useDebounce";
 import Loader from "@/components/shared/Loader";
 import { useInView } from "react-intersection-observer";
+import { ExploreSkeleton } from "@/components/skeletons";
 
 const Explore = () => {
   const [searchValue, setSearchValue] = useState("");
 
   const { ref, inView } = useInView();
 
-  const { data: posts, fetchNextPage, hasNextPage } = useGetPosts();
+  const {
+    data: posts,
+    fetchNextPage,
+    hasNextPage,
+    isFetching: isPostFetching,
+  } = useGetPosts();
 
-  const debouncedValue = useDebounce(searchValue, 1000);
+  const debouncedValue = useDebounce(searchValue, 300);
   const { data: searchedPosts, isFetching: isSearchFetching } =
     useSearchPosts(debouncedValue);
 
@@ -23,18 +29,10 @@ const Explore = () => {
     if (inView && !searchValue) fetchNextPage();
   }, [inView, searchValue]);
 
-  if (!posts) {
-    return (
-      <div className="flex-center w-full h-full">
-        <Loader />
-      </div>
-    );
-  }
-
   const shouldShowSearchResults = searchValue !== "";
   const shouldShowPosts =
     !shouldShowSearchResults &&
-    posts.pages.every((item) => item?.documents.length === 0);
+    posts?.pages.every((item) => item?.documents.length === 0);
 
   return (
     <div className="explore-container">
@@ -73,7 +71,9 @@ const Explore = () => {
 
       {/*  */}
       <div className="flex flex-wrap gap-9 w-full max-w-5xl">
-        {shouldShowSearchResults && searchedPosts ? (
+        {isPostFetching ? (
+          <ExploreSkeleton />
+        ) : shouldShowSearchResults && searchedPosts ? (
           <SearchResults
             isSearchFetching={isSearchFetching}
             searchedPosts={searchedPosts}
@@ -81,7 +81,7 @@ const Explore = () => {
         ) : shouldShowPosts ? (
           <p className="text-light-4 mt-10 text-center w-full">End of posts</p>
         ) : (
-          posts.pages.map((item, index) => {
+          posts?.pages.map((item, index) => {
             if (item)
               return (
                 <GridPostList key={`page-${index}`} posts={item.documents} />
