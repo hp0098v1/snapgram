@@ -1,4 +1,5 @@
 import { Models } from "appwrite";
+import { Link } from "react-router-dom";
 
 type UserCardProps = {
   user: Models.Document;
@@ -6,7 +7,7 @@ type UserCardProps = {
 
 const UserCard = ({ user }: UserCardProps) => {
   return (
-    <div className="user-card">
+    <Link to={`/profile/${user.$id}`} className="user-card">
       <img
         className="w-20 h-20 rounded-full"
         src={user.imageUrl}
@@ -14,7 +15,7 @@ const UserCard = ({ user }: UserCardProps) => {
       />
       <h3>{user.name}</h3>
       <p>@{user.username}</p>
-    </div>
+    </Link>
   );
 };
 
