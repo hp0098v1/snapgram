@@ -447,7 +447,29 @@ export async function getUserPosts(userId: string) {
 // USER
 // ============================================================
 
-// ============================== GET USERS
+// ============================== GET INFINITE USERS
+export async function getInfiniteUsers({ pageParam }: { pageParam: number }) {
+  const queries = [Query.orderDesc("$createdAt"), Query.limit(9)];
+
+  if (pageParam) {
+    queries.push(Query.cursorAfter(pageParam.toString()));
+  }
+
+  try {
+    const users = await databases.listDocuments(
+      appwriteConfig.databaseId,
+      appwriteConfig.userCollectionId,
+      queries
+    );
+
+    if (!users) throw Error;
+
+    return users;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 // ============================== GET USER BY ID
 export async function getUserById(userId: string) {
   try {
