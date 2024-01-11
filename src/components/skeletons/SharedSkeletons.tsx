@@ -15,15 +15,17 @@ export const PostStatsSkeleton = () => {
 };
 
 export const GridPostsSkeleton = ({
+  postsCount = 6,
   showUser = true,
   showStats = true,
 }: {
+  postsCount?: number;
   showUser?: boolean;
   showStats?: boolean;
 }) => {
   return (
     <ul className="grid-container">
-      {Array.from(Array(6).keys()).map((key) => (
+      {Array.from(Array(postsCount).keys()).map((key) => (
         <li
           key={`explore-skeleton-key-${key}`}
           className="relative min-w-80 h-80"

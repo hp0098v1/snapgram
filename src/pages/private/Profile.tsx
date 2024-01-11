@@ -1,10 +1,13 @@
 import { Link, useParams } from "react-router-dom";
 
 import GridPostList from "@/components/shared/GridPostList";
-import Loader from "@/components/shared/Loader";
 import { Button } from "@/components/ui/button";
 import { useGetUserById, useGetUserPosts } from "@/lib/react-query/queries";
 import { useAuthStore } from "@/lib/zustand/useAuthStore";
+import {
+  ProfileDetailSkeleton,
+  ProfilePostsSkeleton,
+} from "@/components/skeletons";
 
 const Profile = () => {
   const { id } = useParams();
@@ -26,7 +29,7 @@ const Profile = () => {
         {/* User Detail Section */}
         <div className="flex flex-col justify-start w-full gap-6 lg:gap-10">
           {isFetchingUserById ? (
-            <Loader />
+            <ProfileDetailSkeleton />
           ) : (
             user !== undefined && (
               <>
@@ -80,9 +83,9 @@ const Profile = () => {
         </div>
 
         {/* User Posts Section */}
-        <div className="flex-center mt-10">
+        <div className="flex-center w-full mt-10">
           {isFetchingUserPosts ? (
-            <Loader />
+            <ProfilePostsSkeleton />
           ) : (
             posts !== undefined && <GridPostList posts={posts.documents} />
           )}
