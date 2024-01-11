@@ -2,10 +2,10 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 
 import { useDeletePost, useGetPostById } from "@/lib/react-query/queries";
 import { timeAgo } from "@/lib/utils";
-import Loader from "@/components/shared/Loader";
 import { useAuthStore } from "@/lib/zustand/useAuthStore";
 import { Button } from "@/components/ui/button";
 import PostStats from "@/components/shared/PostStats";
+import { PostDetailsSkeleton } from "@/components/skeletons";
 
 const PostDetails = () => {
   const { id } = useParams();
@@ -26,7 +26,7 @@ const PostDetails = () => {
   return (
     <div className="post_details-container">
       {isPending ? (
-        <Loader />
+        <PostDetailsSkeleton />
       ) : (
         <div className="post_details-card">
           {/* Post Image */}
