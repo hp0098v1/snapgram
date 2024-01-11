@@ -161,7 +161,7 @@
   }
 
   .post_details-info {
-    @apply bg-dark-2 flex flex-col gap-5 lg:gap-7 flex-1 items-start p-4 lg:p-8 rounded-tr-[30px] rounded-br-[30px];
+    @apply bg-dark-2 flex flex-col gap-5 lg:gap-7 flex-1 items-start p-4 lg:p-8 rounded-[30px];
   }
 
   .post_details-delete_btn {
